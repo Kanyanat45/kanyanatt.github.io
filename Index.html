@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAKEZONE</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+FR+Moderne:wght@100..400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Playwrite FR Moderne", cursive;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #FFD700;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            height: 80px;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000000;
+        }
+        .navbar-nav .nav-link {
+            font-size: 1.2rem;
+            color: #000000 !important;
+            font-weight: 500;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffffff !important;
+            transition: color 0.3s ease;
+        }
+        .hero-image {
+            background: url('https://img.freepik.com/premium-photo/display-cakes-with-different-flavors-including-blueberries-raspberries-watermelon_155083-4101.jpg') no-repeat center center;
+            background-size: cover;
+            height: 500px;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .hero-text {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+        .hero-text h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .hero-text p {
+            font-size: 2rem;
+        }
+        .card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: none;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .card-text {
+            font-size: 1.2rem;
+        }
+        .btn-primary {
+            background-color: #FFD700;
+            border: none;
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            background-color: #FFD700;
+            transition: background-color 0.3s ease;
+        }
+        .footer {
+            background-color: #FFD700;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .card-img-top {
+            height: 220px;
+            object-fit: cover;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer .container {
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer p {
+            margin: 0;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        footer ul li {
+            margin-left: 20px;
+        }
+        footer ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        footer ul li a:hover {
+            text-decoration: underline;
+        }
+        footer ul li a:hover,
+        footer ul li a:focus {
+            color: #FFD700; 
+        }
+        footer ul li a:active {
+            color: #FFD700; 
+        }
+
+    </style>
+    <script>
+        function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let itemIndex = cart.findIndex(item => item.name === name);
+    
+    if (itemIndex > -1) {
+        cart[itemIndex].quantity += 1;
+    } else {
+        cart.push({ name: name, price: price, quantity: 1 });
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCart();
+}
+
+    </script>
+    
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">CAKEZONE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./Index.html">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./Menu.html">MENU</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./Cart.html">CART</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./Bill.html">BILL</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1>Welcome to the Cake Zone</h1>
+            <p>Delicious cakes you'll love</p>
+        </div>
+    </div>
+    
+    
+ <!-- Cake Recommendations -->
+ <div class="container">
+    <h2 class="my-4 text-center">Our Cake Recommendations</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="https://img.wongnai.com/p/1920x0/2017/12/06/1208e6afab4f4f9fb0038e80666b6f8c.jpg" class="card-img-top" alt="Young Coconut Cake">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Young Coconut Cake</h5>
+                    <p class="card-text text-center">Soft cake with fresh coconut and a delightful aroma.</p>
+                    <p class="text-center"><strong>Price : 59 Bath</strong></p>
+                    <div style="text-align: center;">
+                        <button onclick="addToCart('Young Coconut Cake', 59)" class="btn btn-primary">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="https://cdn.readawrite.com/articles/7352/7351856/thumbnail/large.gif?2" class="card-img-top" alt="เค้กสตรอว์เบอร์รี">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Strawberry Cake</h5>
+                    <p class="card-text text-center">Moist strawberry cake with fresh flavor.</p>
+                    <p class="text-center"><strong>Price : 79 Bath</strong></p>
+                    <div style="text-align: center;">
+                        <button onclick="addToCart('Strawberry Cake', 79)" class="btn btn-primary">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="https://img.taste.com.au/8LH23yb5/taste/2021/06/feather-crumb-vanilla-cake-171754-2.jpg" class="card-img-top" alt="เค้กวนิลา">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Vanilla Cake</h5>
+                    <p class="card-text text-center">Smooth vanilla cake with a sweet, delicate flavor.</p>
+                    <p class="text-center"><strong>Price : 49 Bath</strong></p>
+                    <div style="text-align: center;">
+                        <button onclick="addToCart('Vanilla Cake', 49)" class="btn btn-primary">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="https://amorbangkok.com/Image/Web_Asset/447095.jpg" class="card-img-top" alt="เค้กส้ม">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Orange Cake</h5>
+                    <p class="card-text text-center">Orange cake with a zesty, refreshing flavor.</p>
+                    <p class="text-center"><strong>Price : 69 Bath</strong></p>
+                    <div style="text-align: center;">
+                        <button onclick="addToCart('Orange Cake', 69)" class="btn btn-primary">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="https://basketeer.s3.ap-south-1.amazonaws.com/wp-content/uploads/2024/03/18162036/Bakery3.2.jpg" class="card-img-top" alt="เค้กมะม่วง">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Mango Cake</h5>
+                    <p class="card-text text-center">Mango cake with a tropical, fruity flavor.</p>
+                    <p class="text-center"><strong>Price : 69 Bath</strong></p>
+                    <div style="text-align: center;">
+                        <button onclick="addToCart('Mango Cake', 69)" class="btn btn-primary">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="https://i.ytimg.com/vi/w1i-_yb4nQ4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBAbJxvlEA5KSAt0HovBmhWQgsauA" class="card-img-top" alt="เค้กช็อคโกเเลต">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Chocolate Cake</h5>
+                    <p class="card-text text-center">Chocolate cake with a rich, decadent flavor.</p>
+                    <p class="text-center"><strong>Price : 59 Bath</strong></p>
+                    <div style="text-align: center;">
+                        <button onclick="addToCart('Chocolate Cake', 59)" class="btn btn-primary">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="container">
+      <p>&copy; 2024 CAKEZONE. All rights reserved.</p>
+      <ul>
+        <li><a href="./Index.html">HOME</a></li>
+        <li><a href="./Menu.html">MENU</a></li>
+        <li><a href="./Cart.html">CART</a></li>
+        <li><a href="./Bill.html">Bill</a></li>
+      </ul>
+    </div>
+  </footer>
+  
+</body>
+</html>

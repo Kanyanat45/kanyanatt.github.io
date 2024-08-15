@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+FR+Moderne:wght@100..400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Playwrite FR Moderne", cursive;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #FFD700;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            height: 80px;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000000;
+        }
+        .navbar-nav .nav-link {
+            font-size: 1.2rem;
+            color: #000000 !important;
+            font-weight: 500;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffffff !important;
+            transition: color 0.3s ease;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .category-buttons {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .category-buttons button {
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        .cake-item {
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .cake-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        .cake-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+        .cake-item .cake-info {
+            padding: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .cake-item h4 {
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+        .cake-item p {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+        .btn {
+            margin-top: 10px;
+            background-color: #FFD700;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn:hover {
+            background-color: #FFC107;
+            color: #000;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer .container {
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer p {
+            margin: 0;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        footer ul li {
+            margin-left: 20px;
+        }
+        footer ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        footer ul li a:hover {
+            text-decoration: underline;
+        }
+        footer ul li a:hover,
+        footer ul li a:focus {
+            color: #FFD700; 
+        }
+        footer ul li a:active {
+            color: #FFD700; 
+        }
+        #menuContainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* ระยะห่างระหว่างการ์ด */
+        }
+        .cake-item {
+            flex: 1 1 calc(33.333% - 20px); /* ใช้ calc เพื่อลดระยะห่าง */
+        }
+    </style>
+    <script>
+        const cakes = {
+            "Original Cakes": [
+                { name: "Chocolate Cake", price: 59.00, image: "https://i.ytimg.com/vi/w1i-_yb4nQ4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBAbJxvlEA5KSAt0HovBmhWQgsauA" },
+                { name: "Vanilla Cake", price: 49.00, image: "https://img.taste.com.au/8LH23yb5/taste/2021/06/feather-crumb-vanilla-cake-171754-2.jpg" },
+                { name: "Brownie Cake", price: 69.00, image: "https://www.sgethai.com/wp-content/uploads/2023/11/Image01_28.webp" },
+                { name: "Green Tea Cake", price: 79.00, image: "https://shopee.co.th/blog/wp-content/uploads/2021/07/greentea2edit.jpg" },
+                { name: "Pandan Cake", price: 49.00, image: "https://howtocookhub.com/wp-content/uploads/2023/10/7-3.jpg" },
+                { name: "Coffee Cake", price: 59.00, image: "https://d1mf4ril8efyfr.cloudfront.net/media/store_641/products/9c5dfeb7-fe03-42e9-a0e1-6989fdfd512a.jpg" }
+            ],
+            "Fruit Cakes": [
+                { name: "Mango Cake", price: 69.00, image: "https://basketeer.s3.ap-south-1.amazonaws.com/wp-content/uploads/2024/03/18162036/Bakery3.2.jpg" },
+                { name: "Young Coconut Cake", price: 59.00, image: "https://img.wongnai.com/p/1920x0/2017/12/06/1208e6afab4f4f9fb0038e80666b6f8c.jpg" },
+                { name: "Strawberry Cake", price: 79.00, image: "https://cdn.readawrite.com/articles/7352/7351856/thumbnail/large.gif?2" },
+                { name: "Orange Cake", price: 69.00, image: "https://amorbangkok.com/Image/Web_Asset/447095.jpg" },
+                { name: "Pineapple Cake", price: 69.00, image: "https://s359.kapook.com/pagebuilder/b579775d-75f6-4c13-8c19-50b2759f6dbf.jpg" },
+                { name: "Apple Cake", price: 59.00, image: "https://down-th.img.susercontent.com/file/251fc68ef00aaf511f32f0e63ce39eb4" }
+            ],
+            "Cheesecakes": [
+                { name: "Oreo Cheesecake", price: 69.00, image: "https://media.lul.la/wp-content/uploads/2023/05/05111904/oreo-cheese-cake-1.jpg" },
+                { name: "Strawberry Cheesecake", price: 99.00, image: "https://bakery-lover.com/wp-content/uploads/2023/08/4.jpeg" },
+                { name: "Blueberry Cheesecake", price: 99.00, image: "https://www.calforlife.com/image/food/Blueberry-Cheesecake.jpg" },
+                { name: "Cheesecake", price: 69.00, image: "https://img.kapook.com/u/2016/wanwanat/0_edit/126920x.jpg" },
+                { name: "Brownies Cheesecake", price: 79.00, image: "https://api2.krua.co/wp-content/uploads/2020/06/SlideBanner1140x507.jpg" },
+                { name: "Avocado Cheesecake", price: 99.00, image: "https://image.posttoday.com/media/content/2018/09/21/EF307198740044EFA5F016258CB1746A.JPG" },
+            ]
+        };
+
+        function updateMenu(category) {
+            let menuContainer = document.getElementById('menuContainer');
+            menuContainer.innerHTML = '';
+
+            if (cakes[category]) {
+                cakes[category].forEach(cake => {
+                    let cakeDiv = document.createElement('div');
+                    cakeDiv.classList.add('cake-item'); // Set to flex item
+                    cakeDiv.innerHTML = `
+                        <img src="${cake.image}" alt="${cake.name}">
+                        <div class="cake-info">
+                            <h4>${cake.name}</h4>
+                            <p>${cake.price.toFixed(2)} Bath</p>
+                            <button class="btn btn-primary" onclick="addToCart('${cake.name}', ${cake.price})">Add to Cart</button>
+                        </div>
+                    `;
+                    menuContainer.appendChild(cakeDiv);
+                });
+            } else {
+                menuContainer.innerHTML = '<p>No cakes available in this category.</p>';
+            }
+        }
+
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let itemIndex = cart.findIndex(item => item.name === name);
+
+            if (itemIndex !== -1) {
+                cart[itemIndex].quantity += 1;
+            } else {
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} added to cart`);
+        }
+
+        window.onload = function() {
+            updateMenu('Fruit Cakes'); // Default category
+        }
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="./Index.html">CAKEZONE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./Index.html">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./Menu.html">MENU</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./Cart.html">CART</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./Bill.html">BILL</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="category-buttons text-center">
+            <button class="btn btn-light" onclick="updateMenu('Fruit Cakes')">Fruit Cakes</button>
+            <button class="btn btn-light" onclick="updateMenu('Original Cakes')">Original Cakes</button>
+            <button class="btn btn-light" onclick="updateMenu('Cheesecakes')">Cheesecakes</button>
+        </div>
+        <div id="menuContainer"></div>
+    </div>
+    <br/>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+          <p>&copy; 2024 CAKEZONE. All rights reserved.</p>
+          <ul>
+            <li><a href="./Index.html">HOME</a></li>
+            <li><a href="./Menu.html">MENU</a></li>
+            <li><a href="./Cart.html">CART</a></li>
+            <li><a href="./Bill.html">Bill</a></li>
+          </ul>
+        </div>
+      </footer>
+</body>
+</html>

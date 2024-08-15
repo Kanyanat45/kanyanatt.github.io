@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+FR+Moderne:wght@100..400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Playwrite FR Moderne", cursive;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #FFD700;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            height: 80px;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000000;
+        }
+        .navbar-nav .nav-link {
+            font-size: 1.2rem;
+            color: #000000 !important;
+            font-weight: 500;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffffff !important;
+            transition: color 0.3s ease;
+        }
+        .hero-image {
+            background: url('https://img.freepik.com/premium-photo/display-cakes-with-different-flavors-including-blueberries-raspberries-watermelon_155083-4101.jpg') no-repeat center center;
+            background-size: cover;
+            height: 500px;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .hero-text {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+        .hero-text h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .hero-text p {
+            font-size: 2rem;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer .container {
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer p {
+            margin: 0;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        footer ul li {
+            margin-left: 20px;
+        }
+        footer ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        footer ul li a:hover {
+            text-decoration: underline;
+        }
+        footer ul li a:hover,
+        footer ul li a:focus {
+            color: #FFD700; 
+        }
+        footer ul li a:active {
+            color: #FFD700; 
+        }
+        .table th, .table td {
+            text-align: center;
+        }
+        .table thead th {
+            background-color: #FFD700;
+            color: #000000;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .total-row {
+            font-weight: bold;
+        }
+        .btn {
+            margin: 5px;
+        }
+    </style>
+    <script>
+        function updateCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartTableBody = document.getElementById('cartTableBody');
+            let totalPrice = 0;
+            let totalCount = 0;
+
+            // Object to hold aggregated items
+            let aggregatedCart = {};
+
+            // Aggregate items in the cart
+            cart.forEach(item => {
+                let price = parseFloat(item.price) || 0;
+                let quantity = parseInt(item.quantity, 10) || 0;
+
+                if (aggregatedCart[item.name]) {
+                    aggregatedCart[item.name].quantity += quantity;
+                    aggregatedCart[item.name].totalPrice += price * quantity;
+                } else {
+                    aggregatedCart[item.name] = {
+                        quantity: quantity,
+                        price: price,
+                        totalPrice: price * quantity
+                    };
+                }
+            });
+
+            // Clear previous table rows
+            cartTableBody.innerHTML = '';
+
+            // Populate the table with aggregated items
+            for (let [name, item] of Object.entries(aggregatedCart)) {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${name}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.price.toFixed(2)} Bath</td>
+                    <td>${item.totalPrice.toFixed(2)} Bath</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="removeItem('${name}')">Remove</button>
+                    </td>
+                `;
+                cartTableBody.appendChild(row);
+
+                totalPrice += item.totalPrice;
+                totalCount += item.quantity;
+            }
+
+            // Display total
+            let totalRow = document.getElementById('totalRow');
+            totalRow.innerHTML = `
+                <td colspan="3" class="total-row">Total (${totalCount} items)</td>
+                <td colspan="2" class="total-row">${totalPrice.toFixed(2)} Bath</td>
+            `;
+        }
+
+        function removeItem(name) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(item => item.name !== name);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+        }
+
+        window.onload = function() {
+            updateCart();
+        }
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="./Home.html">CAKEZONE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./Index.html">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./Menu.html">MENU</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./Cart.html">CART</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./Bill.html">BILL</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1>Welcome to the Cake Zone</h1>
+            <p>Delicious cakes you'll love</p>
+        </div>
+    </div>
+    
+    <!-- Cart Section -->
+    <div class="container">
+        <h2 class="my-4 text-center">YOUR CART</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>QUANTITY</th>
+                    <th>PRICE</th>
+                    <th>TOTAL PRICE</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody id="cartTableBody">
+                <!-- Cart items will be dynamically added here -->
+            </tbody>
+            <tfoot>
+                <tr id="totalRow">
+                    <!-- Total will be dynamically added here -->
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <br/>
+    <br/>
+
+    <footer>
+        <div class="container">
+          <p>&copy; 2024 CAKEZONE. All rights reserved.</p>
+          <ul>
+            <li><a href="./Index.html">HOME</a></li>
+            <li><a href="./Menu.html">MENU</a></li>
+            <li><a href="./Cart.html">CART</a></li>
+            <li><a href="./Bill.html">Bill</a></li>
+          </ul>
+        </div>
+      </footer>
+</body>
+</html>
